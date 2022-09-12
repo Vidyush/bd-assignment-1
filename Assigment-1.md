@@ -338,8 +338,218 @@ OK
 country total_sales
 Ireland 57756.43
 
+### Calculate the quaterly sales for each city?
+f. select city,qtr_id, sum(sales) from sales_order_orc group by city,qtr_id;
+    
+### Output->
+Query ID = cloudera_20220912144949_fa000cb4-8daa-4187-ad02-aebc339e3ee7
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1662975467880_0023, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1662975467880_0023/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1662975467880_0023
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2022-09-12 14:49:19,197 Stage-1 map = 0%,  reduce = 0%
+2022-09-12 14:49:27,860 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.6 sec
+2022-09-12 14:49:38,667 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.53 sec
+MapReduce Total cumulative CPU time: 3 seconds 530 msec
+Ended Job = job_1662975467880_0023
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.53 sec   HDFS Read: 40211 HDFS Write: 4361 SUCCESS
+Total MapReduce CPU Time Spent: 3 seconds 530 msec
+OK
+city    qtr_id  _c2
+Aaarhus 4       100595.54999999999
+Allentown       2       6166.8
+Allentown       3       71930.61
+Allentown       4       44040.73
+Barcelona       2       4219.2
+Barcelona       4       74192.66000000002
+Bergamo 1       56181.32
+Bergamo 4       81774.4
+Bergen  3       16363.1
+Bergen  4       95277.18000000001
+Boras   1       31606.72
+Boras   3       53941.69
+Boras   4       48710.92
+Boston  2       74994.24
+Boston  3       15344.640000000001
+Boston  4       63730.780000000006
+Brickhaven      1       31474.78
+Brickhaven      2       7277.35
+Brickhaven      3       114974.54000000001
+Brickhaven      4       11528.53
+Bridgewater     2       75778.99
+Bridgewater     4       26115.800000000003
+Brisbane        1       16118.48
+Brisbane        3       34100.03
+Bruxelles       1       18800.09
+Bruxelles       2       8411.95
+Bruxelles       3       47760.48
+Burbank 1       37850.079999999994
+Burbank 4       8234.560000000001
+Burlingame      1       13529.57
+Burlingame      3       42031.83
+Burlingame      4       65221.66999999999
+Cambridge       1       21782.699999999997
+Cambridge       2       14380.92
+Cambridge       3       48828.72
+Cambridge       4       54251.66
+Charleroi       1       16628.16
+Charleroi       2       1711.26
+Charleroi       3       1637.2
+Charleroi       4       13463.48
+Chatswood       2       43971.43
+Chatswood       3       69694.40000000001
+Chatswood       4       37905.149999999994
+Cowes   1       26906.68
+Cowes   4       51334.16
+Dublin  1       38784.47
+Dublin  3       18971.96
+Espoo   1       51373.490000000005
+Espoo   2       31018.230000000003
+Espoo   3       31569.429999999993
+Frankfurt       1       48698.83
+Frankfurt       4       36472.76
+Gensve  1       50432.55
+Gensve  3       67281.01000000001
+Glen Waverly    2       14378.09
+Glen Waverly    3       12334.82
+Glen Waverly    4       37878.55
+Glendale        1       3987.2
+Glendale        2       20350.95
+Glendale        3       7600.12
+Glendale        4       34485.50000000001
+Graz    1       8775.16
+Graz    4       43488.73999999999
+Helsinki        1       26422.82
+Helsinki        3       42744.06
+Helsinki        4       42083.5
+Kobenhavn       1       58871.11
+Kobenhavn       2       62091.880000000005
+Kobenhavn       4       24078.610000000004
+Koln    4       100306.58
+Las Vegas       2       33847.619999999995
+Las Vegas       3       34453.85
+Las Vegas       4       14449.61
+Lille   1       20178.129999999997
+Lille   4       48874.280000000006
+Liverpool       2       91211.05999999998
+Liverpool       4       26797.210000000003
+London  1       8477.220000000001
+London  2       32376.289999999997
+London  4       83970.03
+Los Angeles     1       23889.32
+Los Angeles     4       24159.14
+Lule    1       9749.0
+Lule    4       66005.88
+Lyon    1       101339.14000000001
+Lyon    4       41535.10999999999
+Madrid  1       357668.48999999993
+Madrid  2       339588.0500000001
+Madrid  3       69714.09
+Madrid  4       315580.8100000001
+Makati City     1       55245.020000000004
+Makati City     4       38770.71000000001
+Manchester      1       51017.91999999999
+Manchester      4       106789.89
+Marseille       1       2317.44
+Marseille       2       52481.840000000004
+Marseille       4       20136.859999999997
+Melbourne       1       49637.57
+Melbourne       2       60135.840000000004
+Melbourne       4       91222.00000000001
+Minato-ku       1       38191.39
+Minato-ku       2       26482.700000000004
+Minato-ku       4       55888.65000000001
+Montreal        2       58257.50000000001
+Montreal        4       15947.29
+Munich  3       34993.92
+NYC     1       32647.81
+NYC     2       165100.34
+NYC     3       63027.919999999984
+NYC     4       300011.6999999999
+Nantes  1       59617.4
+Nantes  2       60344.98999999999
+Nantes  3       61310.88000000002
+Nantes  4       23031.589999999997
+Nashua  1       12133.25
+Nashua  4       119552.05000000002
+New Bedford     1       48578.96
+New Bedford     3       45738.39
+New Bedford     4       113557.50999999997
+New Haven       2       36973.310000000005
+New Haven       4       42498.76
+Newark  1       8722.12
+Newark  2       74506.06999999998
+North Sydney    1       65012.42
+North Sydney    3       47191.76
+North Sydney    4       41791.95
+Osaka   1       50490.64
+Osaka   2       17114.43
+Oslo    3       34145.47
+Oslo    4       45078.759999999995
+Oulu    1       49055.4
+Oulu    2       17813.4
+Oulu    3       37501.58
+Paris   1       71494.18
+Paris   2       80215.41999999998
+Paris   3       27798.480000000003
+Paris   4       89436.59999999999
+Pasadena        1       44273.35999999999
+Pasadena        3       55776.11999999998
+Pasadena        4       4512.48
+Philadelphia    1       27398.82
+Philadelphia    2       7287.24
+Philadelphia    4       116503.06999999999
+Reggio Emilia   2       41509.94
+Reggio Emilia   3       56421.65000000001
+Reggio Emilia   4       44669.740000000005
+Reims   1       52029.07000000001
+Reims   2       18971.96
+Reims   3       15146.319999999998
+Reims   4       48895.59
+Salzburg        2       98104.23999999999
+Salzburg        3       6693.280000000001
+Salzburg        4       45001.11000000001
+San Diego       1       87489.22999999998
+San Francisco   1       72899.19999999998
+San Francisco   4       151459.48
+San Jose        2       160010.26999999996
+San Rafael      1       267315.26
+San Rafael      2       7261.75
+San Rafael      3       216297.4
+San Rafael      4       163983.65
+Sevilla 4       54723.62
+Singapore       1       28395.19
+Singapore       2       92033.77000000002
+Singapore       3       90250.08
+Singapore       4       77809.37000000001
+South Brisbane  1       21730.03
+South Brisbane  3       10640.29
+South Brisbane  4       27098.800000000003
+Stavern 1       54701.99999999999
+Stavern 4       61897.19
+Strasbourg      2       80438.48
+Torino  3       94117.26000000002
+Toulouse        1       15139.119999999999
+Toulouse        3       17251.08
+Toulouse        4       38098.240000000005
+Tsawassen       2       31302.5
+Tsawassen       3       43332.350000000006
+Vancouver       4       75238.92
+Versailles      1       5759.42
+Versailles      4       59074.9
+White Plains    4       85555.98999999998
 
- 
+### Find a month for each year in which maximum number of quantities were sold?
+h. 
 
 
 
