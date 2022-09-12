@@ -246,9 +246,11 @@ OK
 qtr_id  total_sales
 3       1758910.8099999994
     
-### In which country sales was maximum? [In forth quarter sales was maximum]
-e. select qtr_id, sum(sales) as total_sales from sales_order_orc group by qtr_id order by total_sales desc limit 1;
-Query ID = cloudera_20220912142929_85ade1ed-08a7-4563-8d1c-191a120906a2
+### In which country sales was maximum? [In USA sales was maximum]
+e. select country, sum(sales) as total_sales from sales_order_orc group by country order by total_sales desc limit 1;;
+
+### Output->
+Query ID = cloudera_20220912143636_a2a03372-5cc9-4f76-8fb1-2e1ba9e863b7
 Total jobs = 2
 Launching Job 1 out of 2
 Number of reduce tasks not specified. Estimated from input data size: 1
@@ -258,14 +260,14 @@ In order to limit the maximum number of reducers:
   set hive.exec.reducers.max=<number>
 In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
-Starting Job = job_1662975467880_0016, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1662975467880_0016/
-Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1662975467880_0016
+Starting Job = job_1662975467880_0018, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1662975467880_0018/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1662975467880_0018
 Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
-2022-09-12 14:29:39,080 Stage-1 map = 0%,  reduce = 0%
-2022-09-12 14:29:47,765 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.47 sec
-2022-09-12 14:29:58,628 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.4 sec
-MapReduce Total cumulative CPU time: 3 seconds 400 msec
-Ended Job = job_1662975467880_0016
+2022-09-12 14:36:21,648 Stage-1 map = 0%,  reduce = 0%
+2022-09-12 14:36:32,747 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.5 sec
+2022-09-12 14:36:44,780 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.19 sec
+MapReduce Total cumulative CPU time: 3 seconds 190 msec
+Ended Job = job_1662975467880_0018
 Launching Job 2 out of 2
 Number of reduce tasks determined at compile time: 1
 In order to change the average load for a reducer (in bytes):
@@ -274,21 +276,70 @@ In order to limit the maximum number of reducers:
   set hive.exec.reducers.max=<number>
 In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
-Starting Job = job_1662975467880_0017, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1662975467880_0017/
-Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1662975467880_0017
+Starting Job = job_1662975467880_0019, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1662975467880_0019/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1662975467880_0019
 Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
-2022-09-12 14:30:11,359 Stage-2 map = 0%,  reduce = 0%
-2022-09-12 14:30:20,066 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.24 sec
-2022-09-12 14:30:33,097 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.09 sec
-MapReduce Total cumulative CPU time: 3 seconds 90 msec
-Ended Job = job_1662975467880_0017
+2022-09-12 14:36:57,762 Stage-2 map = 0%,  reduce = 0%
+2022-09-12 14:37:06,427 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.27 sec
+2022-09-12 14:37:17,437 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.15 sec
+MapReduce Total cumulative CPU time: 3 seconds 150 msec
+Ended Job = job_1662975467880_0019
 MapReduce Jobs Launched:
-Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.4 sec   HDFS Read: 37283 HDFS Write: 200 SUCCESS
-Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 3.09 sec   HDFS Read: 5243 HDFS Write: 13 SUCCESS
-Total MapReduce CPU Time Spent: 6 seconds 490 msec
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.19 sec   HDFS Read: 38159 HDFS Write: 716 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 3.15 sec   HDFS Read: 5781 HDFS Write: 15 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 340 msec
 OK
-qtr_id  total_sales
-4       3874780.01
+country total_sales
+USA     3627982.83
+    
+### In which country sales was minimum? [In USA sales was minimum]
+e(2).  select country, sum(sales) as total_sales from sales_order_orc group by country order by total_sales asc limit 1;
+
+### Output->
+Query ID = cloudera_20220912144040_df2cd7ef-8ad2-4eba-b44a-63f0e56a84ae
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1662975467880_0020, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1662975467880_0020/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1662975467880_0020
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2022-09-12 14:41:08,558 Stage-1 map = 0%,  reduce = 0%
+2022-09-12 14:41:18,379 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.59 sec
+2022-09-12 14:41:30,249 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.29 sec
+MapReduce Total cumulative CPU time: 3 seconds 290 msec
+Ended Job = job_1662975467880_0020
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1662975467880_0021, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1662975467880_0021/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1662975467880_0021
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2022-09-12 14:41:43,700 Stage-2 map = 0%,  reduce = 0%
+2022-09-12 14:41:53,622 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.33 sec
+2022-09-12 14:42:07,605 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.23 sec
+MapReduce Total cumulative CPU time: 3 seconds 230 msec
+Ended Job = job_1662975467880_0021
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.29 sec   HDFS Read: 38158 HDFS Write: 716 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 3.23 sec   HDFS Read: 5772 HDFS Write: 17 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 520 msec
+OK
+country total_sales
+Ireland 57756.43
+
+
+ 
 
 
 
