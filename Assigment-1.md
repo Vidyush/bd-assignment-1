@@ -549,14 +549,10 @@ Versailles      4       59074.9
 White Plains    4       85555.98999999998
 
 ### Find a month for each year in which maximum number of quantities were sold?
-h.  with cte as (select year,month, sum(sales) as tot_sales,
-    > row_number() over(partition by year order by sum(sales)) as row_num
-    > from sales_order_orc
-    > group by year,month)
-    > select year,month,tot_sales from cte where row_num=1;
+h. with cte as (select year,month, sum(sales) as tot_sales, row_number() over(partition by year order by sum(sales) desc) as row_num from sales_order_orc group by year,month) select year,month,tot_sales from cte where row_num=1;
     
-### Output->
-Query ID = cloudera_20220913043838_599285e9-afab-4e54-a2de-798a3bdc85a0
+### Output
+Query ID = cloudera_20220913045555_cab9f6f0-8be2-46ed-8b51-b9a63573c7e6
 Total jobs = 2
 Launching Job 1 out of 2
 Number of reduce tasks not specified. Estimated from input data size: 1
@@ -566,14 +562,14 @@ In order to limit the maximum number of reducers:
   set hive.exec.reducers.max=<number>
 In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
-Starting Job = job_1663066990219_0003, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1663066990219_0003/
-Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1663066990219_0003
+Starting Job = job_1663066990219_0006, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1663066990219_0006/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1663066990219_0006
 Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
-2022-09-13 04:38:37,465 Stage-1 map = 0%,  reduce = 0%
-2022-09-13 04:38:48,560 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.8 sec
-2022-09-13 04:39:01,951 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.72 sec
-MapReduce Total cumulative CPU time: 3 seconds 720 msec
-Ended Job = job_1663066990219_0003
+2022-09-13 04:55:24,508 Stage-1 map = 0%,  reduce = 0%
+2022-09-13 04:55:36,781 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.93 sec
+2022-09-13 04:55:49,146 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.76 sec
+MapReduce Total cumulative CPU time: 3 seconds 760 msec
+Ended Job = job_1663066990219_0006
 Launching Job 2 out of 2
 Number of reduce tasks not specified. Estimated from input data size: 1
 In order to change the average load for a reducer (in bytes):
@@ -582,22 +578,23 @@ In order to limit the maximum number of reducers:
   set hive.exec.reducers.max=<number>
 In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
-Starting Job = job_1663066990219_0004, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1663066990219_0004/
-Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1663066990219_0004
+Starting Job = job_1663066990219_0007, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1663066990219_0007/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1663066990219_0007
 Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
-2022-09-13 04:39:15,177 Stage-2 map = 0%,  reduce = 0%
-2022-09-13 04:39:25,062 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.25 sec
-2022-09-13 04:39:37,418 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.78 sec
-MapReduce Total cumulative CPU time: 3 seconds 780 msec
-Ended Job = job_1663066990219_0004
+2022-09-13 04:56:02,404 Stage-2 map = 0%,  reduce = 0%
+2022-09-13 04:56:12,296 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.32 sec
+2022-09-13 04:56:24,513 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.84 sec
+MapReduce Total cumulative CPU time: 3 seconds 840 msec
+Ended Job = job_1663066990219_0007
 MapReduce Jobs Launched:
-Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.72 sec   HDFS Read: 38117 HDFS Write: 937 SUCCESS
-Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 3.78 sec   HDFS Read: 8692 HDFS Write: 68 SUCCESS
-Total MapReduce CPU Time Spent: 7 seconds 500 msec
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.76 sec   HDFS Read: 38117 HDFS Write: 937 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 3.84 sec   HDFS Read: 8694 HDFS Write: 80 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 600 msec
 OK
-2003    1       129753.6
-2004    3       205733.72999999992
-2005    4       261633.29000000007
+2003    11      1029837.6600000001
+2004    11      1089048.0100000005
+2005    5       457861.05999999965
+
 
 
 
