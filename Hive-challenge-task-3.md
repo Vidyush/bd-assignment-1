@@ -9,8 +9,56 @@ A2. The default metastore configuration is stored in derby. And if multiple clie
 ### Q3. Suppose, I create a table that contains details of all the transactions done by the customers: CREATE TABLE transaction_details (cust_id INT, amount FLOAT, month STRING, country STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ‘,’ ;
 ### Now, after inserting 50,000 records in this table, I want to know the total revenue generated for each month. But, Hive is taking too much time in processing this query. How will you solve this problem and list the steps that I will be taking in order to do so?
 
+A3. To optimize this we can create partitions of the table. The query being used is used to find total revenue for each month, So, we can create partiton for month.
+Steps:
+a) CREATE TABLE partition_trx (cust_id INT, amount FLOAT, country STRING) PARTITIONED BY (month STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ‘,’ ;
+b) set hive.exec.dynamic.partition = true;
+c) set hive.exec.dynamic.partition.mode = nonstrict;
+d) INSERT OVERWRITE TABLE partition_trx PARTITION (month) SELECT cust_id, amount, country, month FROM trx_details;
 
-BUILD A DATA PIPELINE WITH HIVE
+### Q4. How can you add a new partition for the month December in the above partitioned table?
+
+A4. ALTER TABLE partition_trx ADD PARTITION (month='Dec') LOCATION  '/partition_trx';
+
+### Q5.I am inserting data into a table based on partitions dynamically. But, I received an error – FAILED ERROR IN SEMANTIC ANALYSIS: Dynamic partition strict mode requires at least one static partition column. How will you remove this error?
+
+A5. a) set hive.exec.dynamic.partition = true;
+    b) set hive.exec.dynamic.partition.mode = nonstrict;
+
+### Q6. Suppose, I have a CSV file – ‘sample.csv’ present in ‘/temp’ directory with the following entries:
+### id first_name last_name email gender ip_address
+### How will you consume this CSV file into the Hive warehouse using built-in SerDe?
+
+A6. CREATE EXTERNAL TABLE sample
+    (id int, first_name string, last_name string, email string,gender string, ip_address string) ROW FORMAT SERDE ‘org.apache.hadoop.hive.serde2.OpenCSVSerde’ STORED    AS TEXTFILE LOCATION ‘/temp’;
+The Default properties for SerDe is Comma-Separated (CSV) file
+DEFAULT_ESCAPE_CHARACTER \
+DEFAULT_QUOTE_CHARACTER "
+DEFAULT_SEPARATOR ,
+
+### Q7. Suppose, I have a lot of small CSV files present in the input directory in HDFS and I want to create a single Hive table corresponding to these files. The data in these files are in the format: {id, name, e-mail, country}. Now, as we know, Hadoop performance degrades when we use lots of small files.
+### So, how will you solve this problem where we want to create a single Hive table for lots of small files without degrading the performance of the system?
+
+A7. For this first we will create a temp table, then we will load the data after that we will create a table that will store data in sequencefile format and lastly we will transfer the data from temp table to sequencefile table 
+a) CREATE TABLE temp_table (id INT, name STRING, e-mail STRING, country STRING) ROW FORMAT FIELDS DELIMITED TERMINATED BY ',' STORED AS TEXTFILE;
+b) LOAD DATA INPATH '/input' INTO TABLE temp_table;
+c) CREATE TABLE sample_seqfile (id INT, name STRING, e-mail STRING, country STRING) ROW FORMAT FIELDS DELIMITED TERMINATED BY ',' STORED AS SEQUENCEFILE;
+d) INSERT OVERWRITE TABLE sample SELECT * FROM temp_table;
+
+### Q8. LOAD DATA LOCAL INPATH ‘Home/country/state/’
+### OVERWRITE INTO TABLE address;
+### The following statement failed to execute. What can be the cause?
+
+A8. > LOAD DATA LOCAL INPATH ‘file:///Home/country/state/’ OVERWRITE INTO TABLE address; #as we are loading the data from local 'file:///' is used in path
+
+### Q9. Is it possible to add 100 nodes when we already have 100 nodes in Hive? If yes, how?
+
+A9. Yes. Steps.
+a) Setup a new system with username and password.
+b) Setup SSH connections.
+c) Add new data node hostname, IP address and other details.
+
+### BUILD A DATA PIPELINE WITH HIVE
 
 Download a data from the given location - 
 https://archive.ics.uci.edu/ml/machine-learning-databases/00360/
