@@ -91,15 +91,146 @@ OK
 dat     time    co      pts1    nmhc    c6h6    pts2    no      pts3    no2     pts4    pts5    t       rh      ah
 Time taken: 31.476 seconds
 
+### 4. Fetch the result of the select operation in your local as a csv file . 
+### Answer->
+> insert overwrite local directory 'file:///home/cloudera/data/air' row format delimited fields terminated by ',' stored as textfile select * from air_quality_v1 limit 10;
+Query ID = cloudera_20220916075656_ecc8673d-c4d2-4588-9966-3d330290e153
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1663066990219_0028, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1663066990219_0028/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1663066990219_0028
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2022-09-16 07:56:21,974 Stage-1 map = 0%,  reduce = 0%
+2022-09-16 07:56:34,411 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.08 sec
+2022-09-16 07:56:53,298 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 4.48 sec
+MapReduce Total cumulative CPU time: 4 seconds 480 msec
+Ended Job = job_1663066990219_0028
+Copying data to local directory file:/home/cloudera/data/air
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 4.48 sec   HDFS Read: 16465 HDFS Write: 777 SUCCESS
+Total MapReduce CPU Time Spent: 4 seconds 480 msec
+OK
+air_quality_v1.dat      air_quality_v1.time     air_quality_v1.co       air_quality_v1.pts1     air_quality_v1.nmhc     air_quality_v1.c6h6        air_quality_v1.pts2     air_quality_v1.no       air_quality_v1.pts3     air_quality_v1.no2      air_quality_v1.pts4        air_quality_v1.pts5     air_quality_v1.t        air_quality_v1.rh       air_quality_v1.ah
+Time taken: 47.021 seconds
 
-4. Fetch the result of the select operation in your local as a csv file . 
-5. Perform group by operation . 
+### 5. Perform group by operation . 
+### Answer->
+> select year(dat) as year,month(dat) as month,sum(pts1) as tot_pts1 from air_quality_v1 group by year(dat),month(dat) order by year,month;
+Query ID = cloudera_20220916080101_156ff928-0d4b-456d-8f67-629e5149e618
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Defaulting to jobconf value of: 3
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1663066990219_0029, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1663066990219_0029/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1663066990219_0029
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 3
+2022-09-16 08:02:08,359 Stage-1 map = 0%,  reduce = 0%
+2022-09-16 08:02:20,683 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.1 sec
+2022-09-16 08:02:50,399 Stage-1 map = 100%,  reduce = 67%, Cumulative CPU 6.99 sec
+2022-09-16 08:02:51,450 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 8.99 sec
+MapReduce Total cumulative CPU time: 8 seconds 990 msec
+Ended Job = job_1663066990219_0029
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1663066990219_0030, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1663066990219_0030/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1663066990219_0030
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2022-09-16 08:03:09,702 Stage-2 map = 0%,  reduce = 0%
+2022-09-16 08:03:19,507 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.37 sec
+2022-09-16 08:03:30,423 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 3.3 sec
+MapReduce Total cumulative CPU time: 3 seconds 300 msec
+Ended Job = job_1663066990219_0030
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 3   Cumulative CPU: 8.99 sec   HDFS Read: 768202 HDFS Write: 719 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 3.3 sec   HDFS Read: 6640 HDFS Write: 236 SUCCESS
+Total MapReduce CPU Time Spent: 12 seconds 290 msec
+OK
+year    month   tot_pts1
+2004    3       623638.0
+2004    4       800455.0
+2004    5       783165.0
+2004    6       688581.0
+2004    7       777301.0
+2004    8       672037.0
+2004    9       755656.0
+2004    10      880191.0
+2004    11      815147.0
+2004    12      705842.0
+2005    1       746580.0
+2005    2       633064.0
+2005    3       850770.0
+2005    4       82973.0
+Time taken: 94.219 seconds, Fetched: 15 row(s)
+
 7. Perform filter operation at least 5 kinds of filter examples . 
-8. show and example of regex operation
-9. alter table operation 
-10 . drop table operation
-12 . order by operation . 
-13 . where clause operations you have to perform . 
+
+### 8. show and example of regex operation
+### Answer->
+> select distinct(regexp_replace(dat,'/','-')) as dat from air_quality_csv limit 4;
+Query ID = cloudera_20220916080808_2617cff7-890c-4843-8e68-c724a0279498
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Defaulting to jobconf value of: 3
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1663066990219_0031, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1663066990219_0031/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1663066990219_0031
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 3
+2022-09-16 08:08:29,726 Stage-1 map = 0%,  reduce = 0%
+2022-09-16 08:08:40,826 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.73 sec
+2022-09-16 08:09:10,224 Stage-1 map = 100%,  reduce = 33%, Cumulative CPU 5.09 sec
+2022-09-16 08:09:11,337 Stage-1 map = 100%,  reduce = 67%, Cumulative CPU 7.2 sec
+2022-09-16 08:09:12,392 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 9.27 sec
+MapReduce Total cumulative CPU time: 9 seconds 270 msec
+Ended Job = job_1663066990219_0031
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 3   Cumulative CPU: 9.27 sec   HDFS Read: 803053 HDFS Write: 155 SUCCESS
+Total MapReduce CPU Time Spent: 9 seconds 270 msec
+OK
+dat
+01-03-2005
+01-04-2004
+01-07-2004
+01-10-2004
+Time taken: 54.557 seconds, Fetched: 4 row(s)
+
+### 9. alter table operation 
+### Answer->
+> alter table air_quality_csv change date dat string;
+
+### 10 . drop table operation
+### Answer->
+> drop table air_temp; // this is temporary table i created to play around with the data and check regexp.
+ 
+### 12 . order by operation . 
+### Answer->
+> select year(dat) as year,month(dat) as month,sum(pts1) as tot_pts1 from air_quality_v1 group by year(dat),month(dat) order by year,month;
+
+### 13 . where clause operations you have to perform . 
+### Answer->
+> select year(dat),month(dat), no from air_quality_v1 where month(dat) = 3;
 14 . sorting operation you have to perform . 
 15 . distinct operation you have to perform . 
 16 . like an operation you have to perform . 
