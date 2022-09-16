@@ -180,7 +180,8 @@ year    month   tot_pts1
 2005    4       82973.0
 Time taken: 94.219 seconds, Fetched: 15 row(s)
 
-7. Perform filter operation at least 5 kinds of filter examples . 
+### 7. Perform filter operation at least 5 kinds of filter examples . 
+### ANswer->
 > select dat from air_quality_v1 where month(dat) = 3;
 > select dat, co from air_quality_v1 where co<0;
 > select month(dat) as month from air_quality_v1 where month(dat) between 3 and 6;
