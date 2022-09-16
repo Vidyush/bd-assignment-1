@@ -181,6 +181,11 @@ year    month   tot_pts1
 Time taken: 94.219 seconds, Fetched: 15 row(s)
 
 7. Perform filter operation at least 5 kinds of filter examples . 
+> select dat from air_quality_v1 where month(dat) = 3;
+> select dat, co from air_quality_v1 where co<0;
+> select month(dat) as month from air_quality_v1 where month(dat) between 3 and 6;
+> select month(dat) as month, year(dat), sum(co) from air_quality_v1 group by year(dat),month(dat) having sum(co)>1000;
+> select month(dat) as month from air_quality_v1 where month(dat) is 3 or 10;
 
 ### 8. show and example of regex operation
 ### Answer->
@@ -231,8 +236,55 @@ Time taken: 54.557 seconds, Fetched: 4 row(s)
 ### 13 . where clause operations you have to perform . 
 ### Answer->
 > select year(dat),month(dat), no from air_quality_v1 where month(dat) = 3;
-14 . sorting operation you have to perform . 
-15 . distinct operation you have to perform . 
-16 . like an operation you have to perform . 
-17 . union operation you have to perform . 
-18 . table view operation you have to perform . 
+
+### 14 . sorting operation you have to perform . 
+### Answer->
+> select year(dat) as year,sum(pts1) as tot_pts1 from air_quality_v1 group by year(dat) order by year desc;
+
+### 15 . distinct operation you have to perform . 
+### Answer->
+> select distinct(year(dat)) as year from air_quality_v1;
+Query ID = cloudera_20220916111515_ab1a4729-4eb2-4e19-8b8a-f1def7bf88c6
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Defaulting to jobconf value of: 3
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1663066990219_0032, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1663066990219_0032/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1663066990219_0032
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 3
+2022-09-16 11:15:41,292 Stage-1 map = 0%,  reduce = 0%
+2022-09-16 11:15:53,111 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.67 sec
+2022-09-16 11:16:22,676 Stage-1 map = 100%,  reduce = 33%, Cumulative CPU 5.09 sec
+2022-09-16 11:16:23,875 Stage-1 map = 100%,  reduce = 67%, Cumulative CPU 7.19 sec
+2022-09-16 11:16:24,930 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 8.87 sec
+MapReduce Total cumulative CPU time: 8 seconds 870 msec
+Ended Job = job_1663066990219_0032
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 3   Cumulative CPU: 8.87 sec   HDFS Read: 768120 HDFS Write: 13 SUCCESS
+Total MapReduce CPU Time Spent: 8 seconds 870 msec
+OK
+year
+2004
+2005
+Time taken: 60.815 seconds, Fetched: 2 row(s)
+    
+### 16 . like an operation you have to perform .
+### Answer->
+> select dat, pts3,nmhc from air_quality_csv where dat like '_%1__2004' limit 10;
+
+###17 . union operation you have to perform . 
+### ANswer->
+> select dat from air_quality_v1
+> union all
+> select dat from air_quality_view;
+
+    
+### 18 . table view operation you have to perform . 
+### ANswer->
+>  create view air_quality_view as select dat, time, cast(regexp_replace(co, ',', '.') as decimal(7,4)) as co from air_quality_v1;
+
