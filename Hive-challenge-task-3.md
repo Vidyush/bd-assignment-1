@@ -94,7 +94,7 @@ Time taken: 31.476 seconds
 ### 4. Fetch the result of the select operation in your local as a csv file . 
 ### Answer->
 > insert overwrite local directory 'file:///home/cloudera/data/air' row format delimited fields terminated by ',' stored as textfile select * from air_quality_v1 limit 10;
-Query ID = cloudera_20220916075656_ecc8673d-c4d2-4588-9966-3d330290e153
+> Query ID = cloudera_20220916075656_ecc8673d-c4d2-4588-9966-3d330290e153
 Total jobs = 1
 Launching Job 1 out of 1
 Number of reduce tasks determined at compile time: 1
@@ -123,7 +123,7 @@ Time taken: 47.021 seconds
 ### 5. Perform group by operation . 
 ### Answer->
 > select year(dat) as year,month(dat) as month,sum(pts1) as tot_pts1 from air_quality_v1 group by year(dat),month(dat) order by year,month;
-Query ID = cloudera_20220916080101_156ff928-0d4b-456d-8f67-629e5149e618
+> Query ID = cloudera_20220916080101_156ff928-0d4b-456d-8f67-629e5149e618
 Total jobs = 2
 Launching Job 1 out of 2
 Number of reduce tasks not specified. Defaulting to jobconf value of: 3
@@ -185,7 +185,7 @@ Time taken: 94.219 seconds, Fetched: 15 row(s)
 ### 8. show and example of regex operation
 ### Answer->
 > select distinct(regexp_replace(dat,'/','-')) as dat from air_quality_csv limit 4;
-Query ID = cloudera_20220916080808_2617cff7-890c-4843-8e68-c724a0279498
+> Query ID = cloudera_20220916080808_2617cff7-890c-4843-8e68-c724a0279498
 Total jobs = 1
 Launching Job 1 out of 1
 Number of reduce tasks not specified. Defaulting to jobconf value of: 3
