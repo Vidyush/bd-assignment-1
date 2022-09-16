@@ -278,7 +278,7 @@ Time taken: 60.815 seconds, Fetched: 2 row(s)
 ### Answer->
 > select dat, pts3,nmhc from air_quality_csv where dat like '_%1__2004' limit 10;
 
-###17 . union operation you have to perform . 
+### 17 . union operation you have to perform . 
 ### ANswer->
 > select dat from air_quality_v1
 > union all
